@@ -34,6 +34,8 @@ gem 'turbolinks', '~> 5'
 gem 'twilio-ruby'
 gem 'unicorn'
 gem 'webpacker', '~> 4.0'
+# bulk insert
+gem 'activerecord-import', '~> 1.1'
 
 group :development, :test do
   gem 'brakeman'
@@ -68,7 +70,9 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 4.5', '>= 4.5.1'
   gem 'webdrivers'
 end
 

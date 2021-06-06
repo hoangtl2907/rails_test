@@ -18,8 +18,8 @@
           = link_to t('.new'), new_dashboard_admin_user_path, class: 'btn btn-primary'
           .form-inline
             = form_with(url: dashboard_admin_users_path, method: :get) do |f|
-              = f.text_field :q, class: 'form-control mr-sm-2', 'aria-label':'Search'
-              = f.submit :Search, class: 'btn btn-outline-primary my-2 my-sm-0'
+              = f.text_field :q, class: 'form-control mr-sm-2'
+              = f.submit 'Search', class: 'btn btn-outline-primary my-2 my-sm-0'
         .card
           .table-responsive
             table.table.table-sm.card-table
@@ -35,38 +35,38 @@
                   th
                     .d-flex
                       .mr-2 = AdminUser.human_attribute_name(:email)
-                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
-                        = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('email')
+                        = link_to '⋀', dashboard_admin_users_path(order_params('email', 'desc'))
                       - else
-                        = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
+                        = link_to '⋁', dashboard_admin_users_path(order_params('email', 'asc'))
                   th
                     .d-flex
                       .mr-2 = AdminUser.human_attribute_name(:name)
-                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
-                        = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('name')
+                        = link_to '⋀', dashboard_admin_users_path(order_params('name', 'desc'))
                       - else
-                        = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
+                        = link_to '⋁', dashboard_admin_users_path(order_params('name', 'asc'))
                   th
                     .d-flex
                       .mr-2 = AdminUser.human_attribute_name(:age)
-                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
-                        = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('age')
+                        = link_to '⋀', dashboard_admin_users_path(order_params('age', 'desc'))
                       - else
-                        = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
+                        = link_to '⋁', dashboard_admin_users_path(order_params('age', 'asc'))
                   th
                     .d-flex
                       .mr-2 = AdminUser.human_attribute_name(:created_at)
-                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
-                        = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('created_at')
+                        = link_to '⋀', dashboard_admin_users_path(order_params('created_at', 'desc'))
                       - else
-                        = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
+                        = link_to '⋁', dashboard_admin_users_path(order_params('created_at', 'asc'))
                   th
                     .d-flex
                       .mr-2 = AdminUser.human_attribute_name(:updated_at)
-                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
-                        = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('updated_at')
+                        = link_to '⋀', dashboard_admin_users_path(order_params('updated_at', 'desc'))
                       - else
-                        = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
+                        = link_to '⋁', dashboard_admin_users_path(order_params('updated_at', 'asc'))
                   th
               tbody
                 - @admin_users.each do |admin_user|

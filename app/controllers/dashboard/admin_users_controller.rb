@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module Dashboard
   class AdminUsersController < BaseController
+    include AdminUserOrderHelper
+
     before_action :set_admin_user, only: %w[show edit update destroy]
     helper_method :order_params
 
@@ -44,10 +48,6 @@ module Dashboard
       redirect_to action: :index
     end
 
-    def order_params(order, direction)
-      params.merge(o: order, d: direction, page: params[:page]).permit(:o, :d, :page)
-    end
-
     private
 
     def set_admin_user
@@ -61,7 +61,7 @@ module Dashboard
     end
 
     def query_params
-      params.permit(:q, :o, :d)
+      params.permit(:q, :o, :d, :page)
     end
   end
 end
