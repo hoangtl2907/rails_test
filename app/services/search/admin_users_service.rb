@@ -11,6 +11,7 @@ module Search
     end
 
     def execute
+      search
       paginate
       order
 
@@ -18,6 +19,19 @@ module Search
     end
 
     private
+
+    def search
+      return if @search_query.blank?
+
+      search_cond = [
+        'MATCH(name) AGAINST(:search_query) || name like :like_query',
+        {
+          search_query: @search_query,
+          like_query: "%#{@search_query}%"
+        }
+      ]
+      @records = @records.where(search_cond)
+    end
 
     def paginate
       @records = @records.page(@params[:page])

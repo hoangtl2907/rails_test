@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       passwords: 'dashboard/admin_users/passwords'
     }, skip: %w[registrations]
 
-    resources :admin_users, only: %w[index show]
+    resources :admin_users
   end
 
   get '*path' => redirect('/')

@@ -4,11 +4,45 @@ module Dashboard
     helper_method :order_params
 
     def index
-      service = Search::AdminUsersService.new(params)
+      service = Search::AdminUsersService.new(query_params)
       @admin_users = service.execute
     end
 
     def show; end
+
+    def new
+      @admin_user = AdminUser.new
+    end
+
+    def create
+      admin_user = AdminUser.create(admin_user_params)
+
+      if admin_user.errors.present?
+        flash[:errors] = admin_user.errors.full_messages
+        redirect_to action: :new
+      else
+        redirect_to action: :index
+      end
+    end
+
+    def edit; end
+
+    def update
+      @admin_user.update(admin_user_params)
+
+      if @admin_user.errors.present?
+        flash[:errors] = @admin_user.errors.full_messages
+        redirect_to action: :edit
+      else
+        redirect_to action: :index
+      end
+    end
+
+    def destroy
+      @admin_user.destroy
+
+      redirect_to action: :index
+    end
 
     def order_params(order, direction)
       params.merge(o: order, d: direction, page: params[:page]).permit(:o, :d, :page)
@@ -22,8 +56,12 @@ module Dashboard
 
     def admin_user_params
       params.require(:admin_user).permit(
-        :created_at, :updated_at, :email, :name, :password, :email
+        :email, :name, :password, :age, :phone, :address
       )
+    end
+
+    def query_params
+      params.permit(:q, :o, :d)
     end
   end
 end

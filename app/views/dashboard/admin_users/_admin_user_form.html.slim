@@ -1,0 +1,39 @@
+.row.justify-content-center
+  .col-12.col-lg-10.col-xl-8
+    .card
+      .card-header
+        h4.card-header-title = "New Admin User"
+      .card-body
+        .list-group.list-group-flush.my-n3
+          = form_with(model: admin_user, url: url, method: method) do |f|
+            .form-group
+              = f.label "#{AdminUser.human_attribute_name(:email)}*"
+              br
+              = f.text_field :email, class: 'form-control'
+            .form-group
+              = f.label "#{AdminUser.human_attribute_name(:password)}*"
+              br
+              = f.password_field :password, class: 'form-control'
+            .form-group
+              = f.label AdminUser.human_attribute_name(:name)
+              br
+              = f.text_field :name, class: 'form-control'
+            .form-group
+              = f.label AdminUser.human_attribute_name(:age)
+              br
+              = f.text_field :age, class: 'form-control'
+            .form-group
+              = f.label AdminUser.human_attribute_name(:phone)
+              br
+              = f.text_field :phone, class: 'form-control'
+            .form-group
+              = f.label AdminUser.human_attribute_name(:address)
+              br
+              = f.text_field :address, class: 'form-control'
+            .form-group
+              = f.submit :Save, class: 'btn btn-primary'
+          - if flash[:errors].present?
+            .alert.alert-light
+              div style="color: red"
+                - flash[:errors].each do |e|
+                  li = e

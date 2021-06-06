@@ -13,6 +13,13 @@
 
     .row.mt-4
       .col-12
+        / .btn-toolbar style="padding-bottom: 10px"
+        .navbar.navbar-light.bg-light.justify-content-between
+          = link_to t('.new'), new_dashboard_admin_user_path, class: 'btn btn-primary'
+          .form-inline
+            = form_with(url: dashboard_admin_users_path, method: :get) do |f|
+              = f.text_field :q, class: 'form-control mr-sm-2', 'aria-label':'Search'
+              = f.submit :Search, class: 'btn btn-outline-primary my-2 my-sm-0'
         .card
           .table-responsive
             table.table.table-sm.card-table
@@ -34,6 +41,20 @@
                         = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
                   th
                     .d-flex
+                      .mr-2 = AdminUser.human_attribute_name(:name)
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
+                        = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
+                      - else
+                        = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
+                  th
+                    .d-flex
+                      .mr-2 = AdminUser.human_attribute_name(:age)
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
+                        = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
+                      - else
+                        = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
+                  th
+                    .d-flex
                       .mr-2 = AdminUser.human_attribute_name(:created_at)
                       - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
                         = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
@@ -47,29 +68,21 @@
                       - else
                         = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
                   th
-                    .d-flex
-                      .mr-2 = AdminUser.human_attribute_name(:email)
-                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
-                        = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
-                      - else
-                        = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
-                  th
-                    .d-flex
-                      .mr-2 = AdminUser.human_attribute_name(:name)
-                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
-                        = link_to '⋀', dashboard_admin_users_path(order_params('id', 'desc'))
-                      - else
-                        = link_to '⋁', dashboard_admin_users_path(order_params('id', 'asc'))
-                  th
               tbody
                 - @admin_users.each do |admin_user|
                   tr
                     td = admin_user.id
                     td = admin_user.email
+                    td = admin_user.name
+                    td = admin_user.age
                     td = admin_user.created_at
                     td = admin_user.updated_at
-                    td = admin_user.email
-                    td = admin_user.name
-                    td = link_to t('.show'), dashboard_admin_user_path(admin_user), class: 'btn btn-primary btn-sm'
+                    td
+                      .btn-group.mr-2
+                        = link_to t('.show'), dashboard_admin_user_path(admin_user), class: 'btn btn-primary btn-sm'
+                      .btn-group.mr-2
+                        = link_to t('.edit'), edit_dashboard_admin_user_path(admin_user), class: 'btn btn-primary btn-sm'
+                      .btn-group.mr-2
+                        = button_to 'Delete', dashboard_admin_user_path(admin_user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm'
 
         = paginate @admin_users, views_prefix: 'dashboard'
