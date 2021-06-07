@@ -8,7 +8,7 @@
               h6 = t('.heading_sub')
             h1.header-title = AdminUser.model_name.human
           .mx-4.pt-2
-            = render 'breadcrumb', data: [{ text: 'AdminUsers', link: '/dashboard/admin_users' }, { text: 'View AdminUser', link: "/dashboard/admin_users/#{@admin_user.id}" }]
+            = render 'dashboard/common/breadcrumb', data: [{ text: 'AdminUsers', link: '/dashboard/admin_users' }, { text: 'View AdminUser', link: "/dashboard/admin_users/#{@admin_user.id}" }]
 
     .row.justify-content-center
       .col-12.col-lg-10.col-xl-8
@@ -17,19 +17,6 @@
             h4.card-header-title = "#{AdminUser.model_name.human}詳細情報"
           .card-body
             .list-group.list-group-flush.my-n3
-
-              .list-group-item
-                .row.align-items-center
-                  .col
-                    .font-weight-base.mb-1 = AdminUser.human_attribute_name(:created_at)
-                  .col-auto
-                    = @admin_user.created_at
-              .list-group-item
-                .row.align-items-center
-                  .col
-                    .font-weight-base.mb-1 = AdminUser.human_attribute_name(:updated_at)
-                  .col-auto
-                    = @admin_user.updated_at
               .list-group-item
                 .row.align-items-center
                   .col
@@ -42,3 +29,34 @@
                     .font-weight-base.mb-1 = AdminUser.human_attribute_name(:name)
                   .col-auto
                     = @admin_user.name
+              .list-group-item
+                .row.align-items-center
+                  .col
+                    .font-weight-base.mb-1 = AdminUser.human_attribute_name(:age)
+                  .col-auto
+                    = @admin_user.age
+              .list-group-item
+                .row.align-items-center
+                  .col
+                    .font-weight-base.mb-1 = AdminUser.human_attribute_name(:phone)
+                  .col-auto
+                    = @admin_user.phone
+              .list-group-item
+                .row.align-items-center
+                  .col
+                    .font-weight-base.mb-1 = AdminUser.human_attribute_name(:address)
+                  .col-auto
+                    = @admin_user.address
+              .list-group-item
+                .row.align-items-center
+                  .col
+                    .font-weight-base.mb-1 = AdminUser.human_attribute_name(:created_at)
+                  .col-auto
+                    = @admin_user.created_at
+              .list-group-item
+                .row.align-items-center
+                  .col
+                    .font-weight-base.mb-1 = AdminUser.human_attribute_name(:updated_at)
+                  .col-auto
+                    = @admin_user.updated_at
+    = render 'owned_books', admin_user: @admin_user, books: @books

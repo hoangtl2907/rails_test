@@ -1,0 +1,36 @@
+.row.justify-content-center
+  .card
+    .card-header
+      h4.card-header-title Owned Books
+    .card-body
+      .form-inline
+        = form_with(url: dashboard_admin_user_books_path(admin_user), method: :post) do |f|
+          = f.text_field :id, class: 'form-control mr-sm-2', placeholder: 'Book ID'
+          = f.submit 'Add', class: 'btn btn-outline-primary my-2 my-sm-0'
+      - if flash[:errors].present?
+        div style="color: red"
+          - flash[:errors].each do |e|
+            li = e
+    .table-responsive
+      table.table.table-striped.table-hover
+        thead.thead-dark 
+          tr
+            th
+              .d-flex
+                .mr-2 = Book.human_attribute_name(:id)
+            th
+              .d-flex
+                .mr-2 = Book.human_attribute_name(:name)
+            th
+              .d-flex
+                .mr-2 = Book.human_attribute_name(:price)
+            th
+        tbody
+          - books.each do |b|
+            tr
+              td = b.id
+              td = b.name
+              td = b.price
+              td
+                .btn-group-mr-2
+                  = button_to 'Delete', dashboard_admin_user_book_path(admin_user, b), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm'

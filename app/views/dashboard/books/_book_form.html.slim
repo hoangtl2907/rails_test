@@ -1,0 +1,23 @@
+.row.justify-content-center
+  .col-12.col-lg-10.col-xl-8
+    .card
+      .card-header
+        h4.card-header-title = "New Book"
+      .card-body
+        .list-group.list-group-flush.my-n3
+          = form_with(model: book, url: url, method: method) do |f|
+            .form-group
+              = f.label Book.human_attribute_name(:name)
+              br
+              = f.text_field :name, class: 'form-control'
+            .form-group
+              = f.label Book.human_attribute_name(:price)
+              br
+              = f.text_field :price, class: 'form-control'
+            .form-group
+              = f.submit :Save, class: 'btn btn-primary'
+          - if flash[:errors].present?
+            .alert.alert-light
+              div style="color: red"
+                - flash[:errors].each do |e|
+                  li = e

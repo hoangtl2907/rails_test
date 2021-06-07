@@ -10,10 +10,8 @@
           .col-auto
             = link_to t('.csv'), dashboard_admin_users_path(admin_user: @search_query, format: :csv), class: 'btn btn-info lift ml-3'
 
-
     .row.mt-4
       .col-12
-        / .btn-toolbar style="padding-bottom: 10px"
         .navbar.navbar-light.bg-light.justify-content-between
           = link_to t('.new'), new_dashboard_admin_user_path, class: 'btn btn-primary'
           .form-inline
@@ -83,6 +81,6 @@
                       .btn-group.mr-2
                         = link_to t('.edit'), edit_dashboard_admin_user_path(admin_user), class: 'btn btn-primary btn-sm'
                       .btn-group.mr-2
-                        = button_to 'Delete', dashboard_admin_user_path(admin_user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm'
+                        = button_to 'Delete', dashboard_admin_user_path(admin_user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm'
 
         = paginate @admin_users, views_prefix: 'dashboard'

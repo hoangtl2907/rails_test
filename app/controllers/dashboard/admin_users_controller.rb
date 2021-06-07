@@ -2,7 +2,7 @@
 
 module Dashboard
   class AdminUsersController < BaseController
-    include AdminUserOrderHelper
+    include OrderHelper
 
     before_action :set_admin_user, only: %w[show edit update destroy]
     helper_method :order_params
@@ -12,7 +12,9 @@ module Dashboard
       @admin_users = service.execute
     end
 
-    def show; end
+    def show
+      @books = @admin_user.books
+    end
 
     def new
       @admin_user = AdminUser.new

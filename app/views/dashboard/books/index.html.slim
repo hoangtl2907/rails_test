@@ -1,0 +1,76 @@
+.main-content
+  .container-fluid
+    .header
+      .header-body
+        .row.align-items-end
+          .col
+            .header-pretitle
+              h6 = t('.heading_sub')
+            h1.header-title = 'Book List'
+
+    .row.mt-4
+      .col-12
+        .navbar.navbar-light.bg-light.justify-content-between
+          = link_to t('.new'), new_dashboard_book_path, class: 'btn btn-primary'
+          .form-inline
+            = form_with(url: dashboard_admin_users_path, method: :get) do |f|
+              = f.text_field :q, class: 'form-control mr-sm-2'
+              = f.submit 'Search', class: 'btn btn-outline-primary my-2 my-sm-0'
+        .card
+          .table-responsive
+            table.table.table-sm.card-table
+              thead
+                tr
+                  th
+                    .d-flex
+                      .mr-2 = AdminUser.human_attribute_name(:id)
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('id')
+                        = link_to '⋀', dashboard_books_path(order_params('id', 'desc'))
+                      - else
+                        = link_to '⋁', dashboard_books_path(order_params('id', 'asc'))
+                  th
+                    .d-flex
+                      .mr-2 = AdminUser.human_attribute_name(:name)
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('name')
+                        = link_to '⋀', dashboard_books_path(order_params('name', 'desc'))
+                      - else
+                        = link_to '⋁', dashboard_books_path(order_params('name', 'asc'))
+                  th
+                    .d-flex
+                      .mr-2 = AdminUser.human_attribute_name(:price)
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('age')
+                        = link_to '⋀', dashboard_books_path(order_params('age', 'desc'))
+                      - else
+                        = link_to '⋁', dashboard_books_path(order_params('age', 'asc'))
+                  th
+                    .d-flex
+                      .mr-2 = AdminUser.human_attribute_name(:created_at)
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('created_at')
+                        = link_to '⋀', dashboard_books_path(order_params('created_at', 'desc'))
+                      - else
+                        = link_to '⋁', dashboard_books_path(order_params('created_at', 'asc'))
+                  th
+                    .d-flex
+                      .mr-2 = AdminUser.human_attribute_name(:updated_at)
+                      - if params[:d].present? && params[:d].include?('asc') && params[:o].include?('updated_at')
+                        = link_to '⋀', dashboard_books_path(order_params('updated_at', 'desc'))
+                      - else
+                        = link_to '⋁', dashboard_books_path(order_params('updated_at', 'asc'))
+                  th
+              tbody
+                - @books.each do |book|
+                  tr
+                    td = book.id
+                    td = book.name
+                    td = book.price
+                    td = book.created_at
+                    td = book.updated_at
+                    td
+                      .btn-group.mr-2
+                        = link_to t('.show'), dashboard_book_path(book), class: 'btn btn-primary btn-sm'
+                      .btn-group.mr-2
+                        = link_to t('.edit'), edit_dashboard_book_path(book), class: 'btn btn-primary btn-sm'
+                      .btn-group.mr-2
+                        = button_to 'Delete', dashboard_book_path(book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm'
+
+        = paginate @books, views_prefix: 'dashboard'
