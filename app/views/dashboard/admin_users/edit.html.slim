@@ -8,5 +8,5 @@
               h6 = t('.heading_sub')
             h1.header-title = AdminUser.model_name.human
           .mx-4.pt-2
-            = render 'dashboard/common/breadcrumb', data: [{ text: 'AdminUsers', link: '/dashboard/admin_users' }, { text: 'New AdminUser', link: "/dashboard/admin_users/edit/#{@admin_user.id}" }]
+            = render 'dashboard/common/breadcrumb', data: [{ text: 'AdminUsers', link: '/dashboard/admin_users' }, { text: 'Edit AdminUser', link: "/dashboard/admin_users/#{@admin_user.id}/edit" }]
     = render 'admin_user_form', admin_user: @admin_user, url: dashboard_admin_user_path(@admin_user), method: :patch

@@ -34,7 +34,9 @@ module Dashboard
     def edit; end
 
     def update
-      @admin_user.update(admin_user_params)
+      update_params = admin_user_params
+      update_params.delete(:password) if update_params[:password].blank?
+      @admin_user.update(update_params)
 
       if @admin_user.errors.present?
         flash[:errors] = @admin_user.errors.full_messages
@@ -58,7 +60,7 @@ module Dashboard
 
     def admin_user_params
       params.require(:admin_user).permit(
-        :email, :name, :password, :age, :phone, :address
+        :email, :name, :password, :type, :age, :phone, :address
       )
     end
 

@@ -5,33 +5,37 @@
         h4.card-header-title = "New Admin User"
       .card-body
         .list-group.list-group-flush.my-n3
-          = form_with(model: admin_user, url: url, method: method) do |f|
+          = form_tag url, method: method
             .form-group
-              = f.label "#{AdminUser.human_attribute_name(:email)}*"
+              = label_tag "#{AdminUser.human_attribute_name(:email)}*"
               br
-              = f.text_field :email, class: 'form-control'
+              = text_field_tag 'admin_user[email]', admin_user.email, class: 'form-control'
             .form-group
-              = f.label "#{AdminUser.human_attribute_name(:password)}*"
+              = label_tag "#{AdminUser.human_attribute_name(:password)}*"
               br
-              = f.password_field :password, class: 'form-control'
+              = password_field_tag 'admin_user[password]', admin_user.password, class: 'form-control'
             .form-group
-              = f.label AdminUser.human_attribute_name(:name)
+              = label_tag AdminUser.human_attribute_name(:type)
               br
-              = f.text_field :name, class: 'form-control'
+              = select_tag 'admin_user[type]', options_for_select(AdminUser::TYPES, admin_user.type), class: 'form-control'
             .form-group
-              = f.label AdminUser.human_attribute_name(:age)
+              = label_tag AdminUser.human_attribute_name(:name)
               br
-              = f.text_field :age, class: 'form-control'
+              = text_field_tag 'admin_user[name]', admin_user.name, class: 'form-control'
             .form-group
-              = f.label AdminUser.human_attribute_name(:phone)
+              = label_tag AdminUser.human_attribute_name(:age)
               br
-              = f.text_field :phone, class: 'form-control'
+              = text_field_tag 'admin_user[age]', admin_user.age, class: 'form-control'
             .form-group
-              = f.label AdminUser.human_attribute_name(:address)
+              = label_tag AdminUser.human_attribute_name(:phone)
               br
-              = f.text_field :address, class: 'form-control'
+              = text_field_tag 'admin_user[phone]', admin_user.phone, class: 'form-control'
             .form-group
-              = f.submit :Save, class: 'btn btn-primary'
+              = label_tag AdminUser.human_attribute_name(:address)
+              br
+              = text_field_tag 'admin_user[address]', admin_user.address, class: 'form-control'
+            .form-group
+              = submit_tag :Save, class: 'btn btn-primary'
           - if flash[:errors].present?
             .alert.alert-light
               div style="color: red"

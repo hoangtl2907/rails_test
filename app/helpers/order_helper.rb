@@ -2,6 +2,6 @@
 
 module OrderHelper
   def order_params(order, direction)
-    params.merge(o: order, d: direction, page: params[:page]).permit(:o, :d, :page)
+    params.merge(o: order, d: direction).permit(:q, :o, :d, :page)
   end
 end

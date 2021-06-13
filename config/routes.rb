@@ -7,9 +7,10 @@ Rails.application.routes.draw do
 
   root to: 'application#redirect_to_sign_in'
 
-  resources :admin_users, only: %w[#<WebFront:0x00007ffa4cf05750>]
-
   namespace :api do
+    mount_devise_token_auth_for 'AdminUser', at: 'auth'
+
+    resources :books, only: %w[index show create update delete]
   end
 
   namespace :dashboard do

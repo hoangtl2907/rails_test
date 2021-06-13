@@ -10,6 +10,7 @@ gem 'cocoon'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+gem 'devise_token_auth'
 gem 'dotenv-rails'
 gem 'enum_help'
 gem 'fcm'
@@ -36,6 +37,8 @@ gem 'unicorn'
 gem 'webpacker', '~> 4.0'
 # bulk insert
 gem 'activerecord-import', '~> 1.1'
+# authorization
+gem 'pundit'
 
 group :development, :test do
   gem 'brakeman'
