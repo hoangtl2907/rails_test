@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   devise_for :admin_users, controllers: {
     sessions: 'admin_users/sessions'
   }, skip: %w[registrations]
@@ -10,7 +12,7 @@ Rails.application.routes.draw do
   namespace :api do
     mount_devise_token_auth_for 'AdminUser', at: 'auth'
 
-    resources :books, only: %w[index show create update delete]
+    resources :books, only: %w[index show create update destroy]
   end
 
   namespace :dashboard do

@@ -25,6 +25,8 @@ gem 'rack-cors'
 gem 'rails', '~> 6.0.2'
 gem 'rails-i18n'
 gem 'rollbar'
+gem 'rswag-api'
+gem 'rswag-ui'
 gem 'sass-rails', '~> 5'
 gem 'sidekiq'
 gem 'simple_form'
@@ -49,6 +51,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-stack_explorer'
   gem 'rspec-rails', '~> 4.0.1'
+  gem 'rswag-specs'
 end
 
 group :development do

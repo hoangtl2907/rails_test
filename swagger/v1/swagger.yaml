@@ -1,0 +1,157 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+components:
+  schemas:
+    book:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: integer
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      required:
+      - id
+      - name
+      - price
+      - created_at
+      - updated_at
+    books:
+      type: array
+      items:
+        "$ref": "#/components/schemas/book"
+    book_params:
+      type: object
+      properties:
+        book:
+          type: object
+          properties:
+            name:
+              type: string
+            price:
+              type: integer
+          required:
+          - name
+          - price
+paths:
+  "/api/books":
+    parameters:
+    - name: access-token
+      in: header
+      description: Access Token
+      schema:
+        type: string
+    - name: uid
+      in: header
+      description: Uid
+      schema:
+        type: string
+    - name: client
+      in: header
+      description: client
+      schema:
+        type: string
+    get:
+      summary: list books
+      tags:
+      - Books
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/books"
+        '403':
+          description: forbidden
+    post:
+      summary: create book
+      tags:
+      - Books
+      parameters: []
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/book"
+        '403':
+          description: forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/book_params"
+  "/api/books/{id}":
+    parameters:
+    - name: access-token
+      in: header
+      description: Access Token
+      schema:
+        type: string
+    - name: uid
+      in: header
+      description: Uid
+      schema:
+        type: string
+    - name: client
+      in: header
+      description: client
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show book
+      tags:
+      - Books
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/book"
+        '403':
+          description: forbidden
+    patch:
+      summary: update book
+      tags:
+      - Books
+      parameters: []
+      responses:
+        '200':
+          description: successul
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/book"
+        '403':
+          description: forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/book_params"
+    delete:
+      summary: delete book
+      tags:
+      - Books
+      responses:
+        '200':
+          description: successful
+        '403':
+          description: forbidden

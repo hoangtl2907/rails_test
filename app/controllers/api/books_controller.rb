@@ -3,10 +3,9 @@
 module Api
   class BooksController < ApiController
     before_action :set_book, only: %w[show edit update destroy]
+    before_action :authorize_book
 
     def index
-      authorize Book
-
       service = Search::BooksService.new(query_params)
       books = service.execute
 
@@ -33,7 +32,7 @@ module Api
       if @book.errors.present?
         render_error_response(@book.errors.full_messages)
       else
-        render json: book, serializer: BookSerializer, status: :ok
+        render json: @book, serializer: BookSerializer, status: :ok
       end
     end
 
@@ -44,6 +43,10 @@ module Api
     end
 
     private
+
+    def authorize_book
+      authorize Book
+    end
 
     def set_book
       @book = Book.find_by(id: params[:id])
